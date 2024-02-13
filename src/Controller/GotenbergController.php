@@ -26,9 +26,9 @@ class GotenbergController extends AbstractController
     #[Route('/gotenberg/convert', name: 'app_gotenberg_convert', methods: ['POST'])]
     public function convert(Request $request): Response{$url = $request->request->get('url');
 
-    $pdfFilePath = $this->gotenbergService->generatePdfFromUrl($url);
+        $pdfFilePath = $this->gotenbergService->generatePdfFromUrl($url);
+        return $this->file($pdfFilePath);
+    }
 
-    return $this->file($pdfFilePath);
-}
 
 }
