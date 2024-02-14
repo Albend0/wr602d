@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomepageController!{% endblock %}
+
+{% block body %}
+<style>
+    span {
+        color: cadetblue;
+    }
+</style>
+
+<div>
+    <h1>Homepage</h1>
+    <p>Welcome {{ username }}</p>
+    <p>You have the <span>{{ subscription }}</span> subscription</p>
+    <p><a href="{{ path('app_logout') }}">Log out</a></p>
+</div>
+{% endblock %}
