@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Subscription;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\SubscriptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +22,13 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
+
+        // Récuperation abonnement gratuit
+        $subscription = $entityManager->getRepository(Subscription::class)->findOneBy(['title' => 'free']);
+        $user->setSubscription($subscription);
+
+        // On ajoute le rôle user automatiquement
+        $user->setRoles(['ROLE_USER']);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
