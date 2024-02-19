@@ -23,4 +23,15 @@ class SubscriptionController extends AbstractController
             'subscriptions' => $subscriptions
         ]);
     }
+    #[Route('/subscription/change/{id}', name: 'app_subscription_change')]
+    public function change(Subscription $subscription, EntityManagerInterface $entityManager): Response
+    {
+        //change subscription
+        $user = $this->getUser();
+        $user->setSubscription($subscription);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_homepage');
+    }
+
 }
