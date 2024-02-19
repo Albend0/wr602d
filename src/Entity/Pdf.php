@@ -24,6 +24,9 @@ class Pdf
     #[ORM\ManyToOne(inversedBy: 'pdf')]
     private ?User $user = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $filePath = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +71,18 @@ class Pdf
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getFilePath(): ?string
+    {
+        return $this->filePath;
+    }
+
+    public function setFilePath(string $filePath): static
+    {
+        $this->filePath = $filePath;
 
         return $this;
     }

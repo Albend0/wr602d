@@ -12,10 +12,7 @@ class GotenbergService
     {
         $this->client = $client;
     }
-    public function generatePdfFromUrl(string $url): string{
-
-        $htmlContent = file_get_contents($url);
-
+    public function generatePdfFromUrl(string $url, string $pdfName): string{
         $response = $this->client->request(
             'POST',
             'http://localhost:3000/forms/chromium/convert/url',
@@ -29,15 +26,15 @@ class GotenbergService
             ]);
 
         if ($response->getStatusCode() !== 200) {
-
             throw new \Exception('Failed to generate PDF from URL.');
         }
 
         $pdfContent = $response->getContent();
 
-        $pdfFilePath = sys_get_temp_dir() . '/' . uniqid('generated_pdf') . '.pdf';
+        $pdfFilePath = 'uploads/' . $pdfName . '.pdf';
         file_put_contents($pdfFilePath, $pdfContent);
 
         return $pdfFilePath;
     }
+
 }

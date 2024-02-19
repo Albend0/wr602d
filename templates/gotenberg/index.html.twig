@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Convertir une URL en PDF{% endblock %}
+{% block title %}MyPDF - Convert{% endblock %}
 
 {% block body %}
     <div class="flex min-h-screen justify-center items-center">
@@ -9,6 +9,8 @@
             <form action="{{ path('app_gotenberg_convert') }}" method="post" class="mb-4">
                 <label for="url" class="block mb-2 text-gray-400">Enter your URL :</label>
                 <input type="text" id="url" name="url" required class="w-full border border-gray-300 px-4 py-2 rounded-md mb-4 focus:outline-none focus:ring focus:ring-blue-400">
+                <label for="title" class="block mb-2 text-gray-400">File name :</label>
+                <input type="text" id="title" name="title" required class="w-full border border-gray-300 px-4 py-2 rounded-md mb-4 focus:outline-none focus:ring focus:ring-blue-400">
                 <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400">Convert</button>
             </form>
         </div>

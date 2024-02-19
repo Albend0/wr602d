@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Service\GotenbergService;
+use App\Entity\Pdf;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,11 +26,24 @@ class GotenbergController extends AbstractController
     }
 
     #[Route('/gotenberg/convert', name: 'app_gotenberg_convert', methods: ['POST'])]
-    public function convert(Request $request): Response{$url = $request->request->get('url');
+    public function convert(Request $request, EntityManagerInterface $entityManager): Response {
+        $url = $request->request->get('url');
+        $pdfTitle = $request->request->get('title');
+        $pdfFilePath = $this->gotenbergService->generatePdfFromUrl($url, $pdfTitle);
 
-        $pdfFilePath = $this->gotenbergService->generatePdfFromUrl($url);
+        //add pdf to bdd
+        $pdf = new Pdf();
+        $pdf->setUser($this->getUser());
+        $pdf->setTitle($pdfTitle);
+        $pdf->setFilePath($pdfFilePath);
+        $pdf->setCreatedAt(new \DateTimeImmutable());
+        $entityManager->persist($pdf);
+        $entityManager->flush();
+
         return $this->file($pdfFilePath);
+
     }
+
 
 
 }
