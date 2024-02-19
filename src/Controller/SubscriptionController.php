@@ -13,16 +13,19 @@ class SubscriptionController extends AbstractController
     #[Route('/subscription', name: 'app_subscription')]
     public function index(EntityManagerInterface $entityManager): Response
     {
+        // Get subscriptions
+        $subscriptions = $entityManager->getRepository(Subscription::class)->findAll();
 
-        //get subscriptions
-        $subscriptions = $entityManager->getRepository(Subscription::class)
-        ->findAll();
+        // Get active subscription
+        $subscription = $this->getUser()->getSubscription()->getTitle();
 
         return $this->render('subscription/index.html.twig', [
             'controller_name' => 'SubscriptionController',
-            'subscriptions' => $subscriptions
+            'subscriptions' => $subscriptions,
+            'activeSubscription' => $subscription
         ]);
     }
+
     #[Route('/subscription/change/{id}', name: 'app_subscription_change')]
     public function change(Subscription $subscription, EntityManagerInterface $entityManager): Response
     {
@@ -31,7 +34,9 @@ class SubscriptionController extends AbstractController
         $user->setSubscription($subscription);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_homepage');
+        notyf()->addSuccess('Subscription changed.');
+
+        return $this->redirectToRoute('app_subscription');
     }
 
 }

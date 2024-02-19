@@ -38,6 +38,12 @@
             "./migrations/.gitignore"
         ]
     },
+    "php-flasher/flasher-notyf-symfony": {
+        "version": "v1.15.9"
+    },
+    "php-flasher/flasher-symfony": {
+        "version": "v1.15.9"
+    },
     "phpstan/phpstan": {
         "version": "1.10",
         "recipe": {
