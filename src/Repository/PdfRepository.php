@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Pdf;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,21 @@ class PdfRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Pdf::class);
+    }
+
+    public function countPdfLimit(User $user): int
+    {
+        $entityManager = $this->getEntityManager();
+        $qb = $entityManager->createQueryBuilder();
+
+        return $qb->select('COUNT(p.id)')
+            ->from(Pdf::class, 'p')
+            ->andWhere('p.user = :user')
+            ->andWhere('p.createdAt >= :startDate')
+            ->setParameter('user', $user)
+            ->setParameter('startDate', new \DateTimeImmutable('-24 hours'))
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
 //    /**

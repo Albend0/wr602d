@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class HomepageController extends AbstractController
 {
-    #[Route('/homepage', name: 'app_homepage')]
+    #[Route('/', name: 'app_homepage')]
     public function index(UserInterface $username): Response
     {
         //get username

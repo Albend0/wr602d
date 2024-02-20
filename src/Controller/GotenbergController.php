@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\GotenbergService;
 use App\Entity\Pdf;
+use App\Entity\Subscription;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,9 +21,24 @@ class GotenbergController extends AbstractController
     }
 
     #[Route('/gotenberg', name: 'app_gotenberg')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
-        return $this->render('gotenberg/index.html.twig');
+
+        $subscription = $this->getUser()->getSubscription();
+        $pdfLimit = $subscription->getPdfLimit();
+
+        $pdfCount = $entityManager->getRepository(Pdf::class)->countPdfLimit($this->getUser());
+
+        $pdfRemaining = max(0, $pdfLimit - $pdfCount);
+
+        if ($pdfRemaining == 0) {
+            notyf()->addError('Maximum PDF limit reached. Please upgrade your subscription.');
+        }
+
+        return $this->render('gotenberg/index.html.twig', [
+            'pdfCount' => $pdfCount,
+            'pdfRemaining' => $pdfRemaining,
+        ]);
     }
 
     #[Route('/gotenberg/convert', name: 'app_gotenberg_convert', methods: ['POST'])]
