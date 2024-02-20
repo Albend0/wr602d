@@ -3,7 +3,7 @@
 {% block title %}MyPDF - Subscriptions{% endblock %}
 
 {% block body %}
-    <div class="flex min-h-screen justify-center items-center">
+    <div class="flex min-h-screen justify-center items-center dark:bg-gray-900">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {% for subscription in subscriptions %}
                 <div class="max-w-sm bg-white border rounded-lg shadow dark:bg-gray-700 {% if subscription.title == activeSubscription %}border-4 border-r-4 border-blue-500{% else %}dark:border-gray-700{% endif %}">

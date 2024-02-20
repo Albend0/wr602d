@@ -34,10 +34,13 @@
                             <a href="{{ path('app_homepage') }}" class="block py-2 px-3 md:p-0 text-white {% if app.request.attributes.get('_route') == 'app_homepage' %} active-link {% endif %}" aria-current="page">Homepage</a>
                         </li>
                         <li>
-                            <a href="{{ path('app_gotenberg') }}" class="block py-2 px-3 md:p-0 text-white {% if app.request.attributes.get('_route') == 'app_gotenberg' %} active-link {% endif %}" aria-current="page">Convert PDF</a>
+                            <a href="{{ path('app_gotenberg') }}" class="block py-2 px-3 md:p-0 text-white {% if app.request.attributes.get('_route') == 'app_gotenberg' %} active-link {% endif %}" aria-current="page">Convert URL</a>
                         </li>
                         <li>
                             <a href="{{ path('app_account') }}" class="block py-2 px-3 md:p-0 text-white {% if app.request.attributes.get('_route') == 'app_account' %} active-link {% endif %}" aria-current="page">My Account</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_logout') }}" class="block py-2 px-3 md:p-0 text-white" aria-current="page">Log out</a>
                         </li>
                     </ul>
                 </div>
