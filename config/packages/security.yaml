@@ -36,9 +36,6 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/homepage, roles: IS_AUTHENTICATED }
-        - { path: ^/gotenberg, roles: IS_AUTHENTICATED }
-        - { path: ^/account, roles: IS_AUTHENTICATED }
 
 when@test:
     security:
