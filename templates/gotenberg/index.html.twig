@@ -3,8 +3,8 @@
 {% block title %}MyPDF - Convert{% endblock %}
 
 {% block body %}
-    <div class="flex min-h-screen justify-center items-center">
-        <div class="container mx-auto max-w-md p-6 bg-gray-700 rounded-lg shadow-md {% if pdfRemaining == 0 %}opacity-50 pointer-events-none{% endif %}">
+    <div class="flex min-h-screen justify-center items-center dark:bg-gray-900">
+        <div class="container mx-auto max-w-md p-6 bg-gray-800 rounded-lg shadow-md {% if pdfRemaining == 0 %}opacity-50 pointer-events-none{% endif %}">
             <h1 class="text-white text-3xl font-bold mb-8">URL to PDF</h1>
             <form action="{{ path('app_gotenberg_convert') }}" method="post" class="mb-4">
                 <label for="url" class="block mb-2 text-gray-400">Enter your URL :</label>
